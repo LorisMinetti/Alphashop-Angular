@@ -6,13 +6,15 @@ import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ErrorComponent } from './error/error.component';
+import { ArticoliComponent } from './articoli/articoli.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     LoginComponent,
-    ErrorComponent
+    ErrorComponent,
+    ArticoliComponent
   ],
   imports: [
     BrowserModule,
