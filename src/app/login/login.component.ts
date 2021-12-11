@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  userId: string = "Nicola";
+  userId: string = "";
   password: string = "";
 
   autenticato: boolean = true;
