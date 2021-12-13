@@ -52,7 +52,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/fonts/material-icon/css/round.css"
+              "src/assets/css/round.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
