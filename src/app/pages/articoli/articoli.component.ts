@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { IArticoli } from '../models/Articoli';
+import { IArticoli } from 'src/app/models/Articoli';
 
 @Component({
   selector: 'app-articoli',
