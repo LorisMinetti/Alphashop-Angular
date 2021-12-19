@@ -22,7 +22,11 @@ export class WelcomeComponent implements OnInit {
     this.utente = this.route.snapshot.params['userid'];
   }
 
-  getSaluti = () : void => console.log(this.salutiSrv.getSaluti());
+  getSaluti = () : void => {
+    this.salutiSrv.getSaluti().subscribe(
+      response => console.log(response)
+    );
+  }
 
 
 }
