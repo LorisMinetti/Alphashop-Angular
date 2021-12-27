@@ -32,7 +32,7 @@ export class ArticoliCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  editArt = () =>  this.edit.emit(this.articolo.codart);
+  editArt = () => this.edit.emit(this.articolo.codart);
   delArt = () => this.delete.emit(this.articolo.codart);
 
 }
