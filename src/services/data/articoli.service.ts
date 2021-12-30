@@ -1,11 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { IArticoli } from 'src/app/models/Articoli';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticoliService {
 
+  /*
   articoli: IArticoli[]  = [
     {codart : '014600301', descrizione : 'BARILLA FARINA 1 KG', um : 'PZ', pzcart : 24, peso : 1, prezzo : 1.09, active : true, data : new Date(), imageUrl: 'assets/images/prodotti/014600301.jpg'},
     {codart : "013500121", descrizione : "BARILLA PASTA GR.500 N.70 1/2 PENNE", um : "PZ", pzcart : 30, peso : 0.5, prezzo : 1.3, active : true, data : new Date(), imageUrl: 'assets/images/prodotti/013500121.jpg'},
@@ -14,14 +17,38 @@ export class ArticoliService {
     {codart : "057549001", descrizione : "FINDUS CROCCOLE 400 GR", um : "PZ", pzcart : 12, peso : 0.4, prezzo : 5.97, active : true, data : new Date(), imageUrl: 'assets/images/prodotti/057549001.jpg'},
 
   ]
-  constructor() { }
+  */
 
-  getArticoli = () : IArticoli[] => this.articoli;
+  constructor(private httpClient : HttpClient) { }
 
+  //getArticoli = () : IArticoli[] => this.articoli;
+
+  getArticoliByDesc = (descrizione : string) => {
+    return this.httpClient.get<IArticoli[]>(`http://localhost:5051/api/articoli/cerca/descrizione/${descrizione}`) //ALT + 0096 | ALT GR + '
+    .pipe(
+      map(response => {
+        response.forEach(item => item.idStatoArt = this.getDesStatoArt(item.idStatoArt))
+        return response;
+      })
+    )
+  }
+
+  getDesStatoArt = (idStato: string) : string => {
+
+    if (idStato === '1')
+      return 'Attivo'
+    else if (idStato === '2')
+      return 'Sospeso'
+    else
+      return 'Eliminato'
+  }
+
+  /*
   getArticoliByCode = (codart: string) : IArticoli => {
 
     const index = this.articoli.findIndex(articoli => articoli.codart === codart);
     return this.articoli[index];
 
   }
+  */
 }

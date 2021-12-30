@@ -59,15 +59,20 @@
 						</tr>
           </thead>
           <tbody>
-            <tr *ngFor="let articolo of articoli">
-              <td class="tbl-string">{{articolo.codart}}</td>
+            <tr *ngFor="let articolo of articoli$">
+              <td class="tbl-string">{{articolo.codArt}}</td>
               <td class="tbl-string">{{articolo.descrizione}}</td>
               <td class="tbl-string">{{articolo.um}}</td>
-              <td class="tbl-string">{{articolo.pzcart}}</td>
-              <td class="tbl-string">{{articolo.peso}}</td>
+              <td class="tbl-string">{{articolo.pzCart}}</td>
+              <td class="tbl-string">{{articolo.pesoNetto}}</td>
               <td class="tbl-string">{{articolo.prezzo | currency : 'EUR'}}</td>
-              <td class="tbl-string infoBadge"><span class="badge rounded-pill alert-success">Attivo</span></td>
-              <td class="tbl-string">{{articolo.data | date : 'dd-MM-YYYY'}}</td>
+              <td class="tbl-string infoBadge">
+                <span
+                  [ngClass]="articolo.idStatoArt === 'Attivo' ? 'badge rounded-pill alert-success' :
+                    'badge rounded-pill alert-danger'">{{articolo.idStatoArt}}
+                </span>
+              </td>
+              <td class="tbl-string">{{articolo.dataCreazione | date : 'dd-MM-YYYY'}}</td>
 
               <td class="text-end">
                 <button href="#" class="btn btn-light text-danger">Elimina</button>
