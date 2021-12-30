@@ -13,6 +13,9 @@ export class ArticoliComponent implements OnInit {
   articoli$: IArticoli[]  = []
   errore : string = "";
 
+  pagina : number = 1;
+  righe : number = 10;
+
   constructor(private articoliService: ArticoliService) { }
 
   ngOnInit(): void {

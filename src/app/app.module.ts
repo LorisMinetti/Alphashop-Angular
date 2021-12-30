@@ -11,8 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { NgModule } from '@angular/core';
-import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { RegistrazioneComponent } from './pages/registrazione/registrazione.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { RegistrazioneComponent } from './pages/registrazione/registrazione.comp
     AppRoutingModule,
     FormsModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
