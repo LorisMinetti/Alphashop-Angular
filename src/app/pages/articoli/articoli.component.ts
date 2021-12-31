@@ -21,6 +21,8 @@ export class ArticoliComponent implements OnInit {
   filter$: Observable<string | null> = of("");
   filter: string | null = "";
 
+  filterType: number = 0;
+
   constructor(private articoliService: ArticoliService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -45,19 +47,60 @@ export class ArticoliComponent implements OnInit {
 
   getArticoli = (filter : string) => {
 
-    this.articoliService.getArticoliByDesc(filter).subscribe({
-      next: this.handleResponse.bind(this),
-      error: this.handleError.bind(this)
-    });
+    this.articoli$ = [];
 
+    if (this.filterType === 0) {
+      this.articoliService.getArticoliByCode(filter).subscribe({
+        next: this.handleResponse.bind(this),
+        error: this.handleError.bind(this)
+      });
+    }
+    else if (this.filterType === 1)
+    {
+      this.articoliService.getArticoliByDesc(filter).subscribe({
+        next: this.handleResponse.bind(this),
+        error: this.handleError.bind(this)
+      });
+    }
+    else if (this.filterType === 2)
+    {
+      this.articoliService.getArticoliByEan(filter).subscribe({
+        next: this.handleResponse.bind(this),
+        error: this.handleError.bind(this)
+      });
+    }
   }
 
   handleResponse(response : any) {
-    this.articoli$ = response;
+
+    if (this.filterType === 0 || this.filterType === 2)
+    {
+      let newArray : IArticoli[] = [...this.articoli$, response];
+      this.articoli$ = newArray;
+    }
+    else
+    {
+      this.articoli$ = response;
+    }
+
+    this.filterType = 0;
   }
 
   handleError(error: Object) {
-    this.errore = error.toString();
+
+    if (this.filter && this.filterType === 0) {
+      this.filterType = 1;
+      this.getArticoli(this.filter);
+    }
+    else if (this.filter && this.filterType === 1) {
+      this.filterType = 2;
+      this.getArticoli(this.filter);
+    }
+    else {
+      this.errore = error.toString();
+      this.filterType = 0;
+    }
+
   }
 
 }
