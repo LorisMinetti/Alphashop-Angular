@@ -86,7 +86,7 @@ export class ArticoliComponent implements OnInit {
     this.filterType = 0;
   }
 
-  handleError(error: Object) {
+  handleError(error: any) {
 
     if (this.filter && this.filterType === 0) {
       this.filterType = 1;
@@ -97,7 +97,8 @@ export class ArticoliComponent implements OnInit {
       this.getArticoli(this.filter);
     }
     else {
-      this.errore = error.toString();
+      console.log(error);
+      this.errore = error.error.message;
       this.filterType = 0;
     }
 
