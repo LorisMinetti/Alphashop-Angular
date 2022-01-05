@@ -104,4 +104,16 @@ export class ArticoliComponent implements OnInit {
 
   }
 
+  Elimina = (CodArt: string) => {
+    console.log(`Eliminazione articolo ${CodArt}`);
+
+    this.articoliService.delArticoloByCodArt(CodArt).subscribe(
+      response => {
+        console.log(response);
+
+        this.articoli$ = this.articoli$.filter(item => item.codArt !== CodArt);
+      }
+    )
+  }
+
 }
