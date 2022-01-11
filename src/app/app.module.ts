@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
 import { ErrorComponent } from './pages/error/error.component';
 import { FormsModule } from '@angular/forms';
+import { GestartComponent } from './pages/gestart/gestart.component';
 import { GridArticoliComponent } from './pages/grid-articoli/grid-articoli.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './pages/login/login.component';
@@ -25,7 +26,8 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
     LogoutComponent,
     GridArticoliComponent,
     ArticoliCardComponent,
-    RegistrazioneComponent
+    RegistrazioneComponent,
+    GestartComponent
   ],
   imports: [
     BrowserModule,

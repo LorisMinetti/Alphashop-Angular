@@ -1,4 +1,4 @@
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Observable, map, of } from 'rxjs';
 
@@ -23,7 +23,9 @@ export class ArticoliComponent implements OnInit {
 
   filterType: number = 0;
 
-  constructor(private articoliService: ArticoliService, private route: ActivatedRoute) { }
+  codart: string = "";
+
+  constructor(private articoliService: ArticoliService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -104,16 +106,38 @@ export class ArticoliComponent implements OnInit {
 
   }
 
+  Modifica = (CodArt: string) => {
+    console.log(`Modifica articolo ${CodArt}`);
+
+    this.router.navigate(['gestart',CodArt]);
+  }
+
   Elimina = (CodArt: string) => {
+    this.codart = CodArt;
     console.log(`Eliminazione articolo ${CodArt}`);
 
-    this.articoliService.delArticoloByCodArt(CodArt).subscribe(
-      response => {
-        console.log(response);
-
-        this.articoli$ = this.articoli$.filter(item => item.codArt !== CodArt);
+    this.articoliService.delArticoloByCodArt(CodArt).subscribe({
+      next: this.handleOkDelete.bind(this),
+      error: this.handleErrDelete.bind(this)
       }
     )
+
   }
+
+  handleOkDelete(response: any) {
+    console.log(response);
+
+    this.articoli$ = this.articoli$.filter(item => item.codArt !== this.codart);
+    this.codart = "";
+
+  }
+
+  handleErrDelete(error: any) {
+    console.log(error);
+    this.errore = error.error.message;
+  }
+
+
+
 
 }

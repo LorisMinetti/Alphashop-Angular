@@ -1,5 +1,6 @@
+import { IArticoli, ICat, IIva } from 'src/app/models/Articoli';
+
 import { HttpClient } from '@angular/common/http';
-import { IArticoli } from 'src/app/models/Articoli';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 
@@ -17,11 +18,13 @@ export class ArticoliService {
     return this.httpClient.get<IArticoli[]>(`http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`) //ALT + 0096 | ALT GR + '
     .pipe(
       map(response => {
-        response.forEach(item => item.idStatoArt = this.getDesStatoArt(item.idStatoArt))
+        response.forEach(item => item.desStatoArt = this.getDesStatoArt(item.idStatoArt))
         return response;
       })
     )
   }
+
+
 
   getDesStatoArt = (idStato: string) : string => {
 
@@ -39,7 +42,7 @@ export class ArticoliService {
     return this.httpClient.get<IArticoli>(`http://${this.server}:${this.port}/api/articoli/cerca/codice/${codart}`)
     .pipe(
       map(response => {
-        response.idStatoArt = this.getDesStatoArt(response.idStatoArt)
+        response.desStatoArt = this.getDesStatoArt(response.idStatoArt)
         return response;
       })
     );
@@ -49,7 +52,7 @@ export class ArticoliService {
     return this.httpClient.get<IArticoli>(`http://${this.server}:${this.port}/api/articoli/cerca/barcode/${barcode}`)
     .pipe(
       map(response => {
-        response.idStatoArt = this.getDesStatoArt(response.idStatoArt)
+        response.desStatoArt = this.getDesStatoArt(response.idStatoArt)
         return response;
       })
     );
@@ -58,4 +61,13 @@ export class ArticoliService {
   delArticoloByCodArt = (codart: string) =>
     this.httpClient.delete(`http://${this.server}:${this.port}/api/articoli/elimina/${codart}`);
 
+  getIva = () => this.httpClient.get<IIva[]>(`http://${this.server}:${this.port}/api/iva`);
+
+  getCat = () => this.httpClient.get<ICat[]>(`http://${this.server}:${this.port}/api/cat`);
+
+  updArticolo = (articolo: IArticoli) =>
+      this.httpClient.put(`http://${this.server}:${this.port}/api/articoli/modifica`, articolo);
+
 }
+
+

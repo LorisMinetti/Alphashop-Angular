@@ -68,8 +68,8 @@
               <td class="tbl-string">{{articolo.prezzo | currency : 'EUR'}}</td>
               <td class="tbl-string infoBadge">
                 <span
-                  [ngClass]="articolo.idStatoArt === 'Attivo' ? 'badge rounded-pill alert-success' :
-                    'badge rounded-pill alert-danger'">{{articolo.idStatoArt}}
+                  [ngClass]="articolo.idStatoArt === '1' ? 'badge rounded-pill alert-success' :
+                    'badge rounded-pill alert-danger'">{{articolo.desStatoArt}}
                 </span>
               </td>
               <td class="tbl-string">{{articolo.dataCreazione | date : 'dd-MM-YYYY'}}</td>
@@ -83,7 +83,7 @@
 									<ul class="dropdown-menu">
 										<li><a class="dropdown-item" href="#">Dettaglio</a></li>
 										<li><a class="dropdown-item" href="#">Info</a></li>
-										<li><a class="dropdown-item" href="#">Modifica</a></li>
+										<li><a class="dropdown-item" (click)="Modifica(articolo.codArt)">Modifica</a></li>
 									</ul>
 								</div> <!-- dropdown //end -->
 							</td>
