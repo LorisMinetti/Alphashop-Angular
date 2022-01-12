@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IArticoli, ICat, IIva } from 'src/app/models/Articoli';
 
 import { ActivatedRoute } from '@angular/router';
+import { ApiMsg } from 'src/app/models/ApiMsg';
 import { ArticoliService } from 'src/services/data/articoli.service';
 
 @Component({
@@ -35,6 +36,11 @@ export class GestartComponent implements OnInit {
   Cat: ICat[] = [];
 
   ean: string = "";
+
+  apiMsg!: ApiMsg;
+
+  Conferma: string = '';
+  Errore: string = '';
 
   constructor(private route: ActivatedRoute, private articoliService: ArticoliService) { }
 
@@ -81,11 +87,18 @@ export class GestartComponent implements OnInit {
   salva = () => {
     console.log(this.articolo);
 
-    this.articoliService.updArticolo(this.articolo).subscribe(
-      response => {
-        console.log(response);
+    this.articoliService.updArticolo(this.articolo).subscribe({
+      next: (response) => {
+        this.apiMsg = response;
+        this.Conferma = this.apiMsg.message;
+      },
+      error: (error) => {
+        console.log(error);
+        this.apiMsg = error.error;
+        this.Errore = this.apiMsg.message;
       }
-    )
+    });
+
   }
 
 }
