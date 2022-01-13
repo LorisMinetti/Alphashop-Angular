@@ -12,7 +12,8 @@ import { ArticoliService } from 'src/services/data/articoli.service';
 })
 export class GestartComponent implements OnInit {
 
-  title : string = "Modifica Articoli";
+  title : string = "";
+  isModifica : boolean = false;
 
   CodArt: string = '';
   articolo: IArticoli = {
@@ -47,12 +48,22 @@ export class GestartComponent implements OnInit {
   ngOnInit(): void {
 
     this.CodArt =  this.route.snapshot.params['codart'];
-    console.log("Selezionato articolo " + this.CodArt);
 
-    this.articoliService.getArticoliByCode(this.CodArt).subscribe({
-      next: this.handleResponse.bind(this),
-      error: this.handleError.bind(this)
-    });
+    if (this.CodArt) {
+      console.log("Selezionato articolo " + this.CodArt);
+
+      this.title = "Modifica Articolo";
+      this.isModifica = true;
+
+      this.articoliService.getArticoliByCode(this.CodArt).subscribe({
+        next: this.handleResponse.bind(this),
+        error: this.handleError.bind(this)
+      });
+    }
+    else {
+      this.title = "Creazione Articolo";
+      this.isModifica = false;
+    }
 
     this.articoliService.getIva().subscribe(
       response => {
@@ -87,18 +98,32 @@ export class GestartComponent implements OnInit {
   salva = () => {
     console.log(this.articolo);
 
-    this.articoliService.updArticolo(this.articolo).subscribe({
-      next: (response) => {
-        this.apiMsg = response;
-        this.Conferma = this.apiMsg.message;
-      },
-      error: (error) => {
-        console.log(error);
-        this.apiMsg = error.error;
-        this.Errore = this.apiMsg.message;
-      }
-    });
-
+    if (this.isModifica) {
+      this.articoliService.updArticolo(this.articolo).subscribe({
+        next: (response) => {
+          this.apiMsg = response;
+          this.Conferma = this.apiMsg.message;
+        },
+        error: (error) => {
+          console.log(error);
+          this.apiMsg = error.error;
+          this.Errore = this.apiMsg.message;
+        }
+      });
+    }
+    else {
+      this.articoliService.insArticolo(this.articolo).subscribe({
+        next: (response) => {
+          this.apiMsg = response;
+          this.Conferma = this.apiMsg.message;
+        },
+        error: (error) => {
+          console.log(error);
+          this.apiMsg = error.error;
+          this.Errore = this.apiMsg.message;
+        }
+      });
+    }
   }
 
 }
