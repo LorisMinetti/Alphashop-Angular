@@ -25,7 +25,8 @@ export class ArticoliComponent implements OnInit {
 
   codart: string = "";
 
-  constructor(private articoliService: ArticoliService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private articoliService: ArticoliService, private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -42,6 +43,8 @@ export class ArticoliComponent implements OnInit {
   }
 
   refresh = () => {
+    this.errore = "";
+
     if (this.filter) {
       this.getArticoli(this.filter);
     }

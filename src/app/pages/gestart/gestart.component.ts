@@ -1,7 +1,7 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { IArticoli, ICat, IIva } from 'src/app/models/Articoli';
 
-import { ActivatedRoute } from '@angular/router';
 import { ApiMsg } from 'src/app/models/ApiMsg';
 import { ArticoliService } from 'src/services/data/articoli.service';
 
@@ -19,7 +19,7 @@ export class GestartComponent implements OnInit {
   articolo: IArticoli = {
     codArt: '',
     descrizione: '',
-    um: '',
+    um: '-1',
     codStat: '',
     pzCart: 0,
     pesoNetto: 0,
@@ -43,7 +43,8 @@ export class GestartComponent implements OnInit {
   Conferma: string = '';
   Errore: string = '';
 
-  constructor(private route: ActivatedRoute, private articoliService: ArticoliService) { }
+  constructor(private route: ActivatedRoute, private articoliService: ArticoliService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -98,6 +99,9 @@ export class GestartComponent implements OnInit {
   salva = () => {
     console.log(this.articolo);
 
+    this.Errore = "";
+    this.Conferma = "";
+
     if (this.isModifica) {
       this.articoliService.updArticolo(this.articolo).subscribe({
         next: (response) => {
@@ -124,6 +128,15 @@ export class GestartComponent implements OnInit {
         }
       });
     }
+  }
+
+  abort = () => {
+
+    if (this.isModifica)
+      this.router.navigate(['articoli'], {queryParams: {filter : this.CodArt}});
+    else
+      this.router.navigate(['articoli']);
+
   }
 
 }
