@@ -46,6 +46,20 @@ export class LoginComponent implements OnInit {
   gestAuth = (): void => {
     console.log(this.userId);
 
+    this.BasicAuth.autenticaService(this.userId, this.password).subscribe({
+      next: (response) => {
+        console.log(response);
+
+        this.autenticato = true;
+        this.route.navigate(['welcome', this.userId]);
+      },
+      error: (error) => {
+        console.log(error);
+        this.autenticato = false;
+      }
+    });
+
+    /*
     if (this.BasicAuth.autentica(this.userId, this.password)) {
       this.route.navigate(['welcome', this.userId]);
 
@@ -55,5 +69,7 @@ export class LoginComponent implements OnInit {
       this.autenticato = false;
 
     }
+    */
+
   }
 }

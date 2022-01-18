@@ -1,7 +1,7 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IArticoli, ICat, IIva } from 'src/app/models/Articoli';
 
 import { ApiMsg } from 'src/app/models/ApiMsg';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 
@@ -16,7 +16,12 @@ export class ArticoliService {
   constructor(private httpClient : HttpClient) { }
 
   getArticoliByDesc = (descrizione : string) => {
-    return this.httpClient.get<IArticoli[]>(`http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`) //ALT + 0096 | ALT GR + '
+
+    let headers = new HttpHeaders(
+      {Authorization:   "Basic " + window.btoa('Nicola' + ":" + '123_Stella') }
+    )
+
+    return this.httpClient.get<IArticoli[]>(`http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`,{headers}) //ALT + 0096 | ALT GR + '
     .pipe(
       map(response => {
         response.forEach(item => item.desStatoArt = this.getDesStatoArt(item.idStatoArt))
@@ -24,8 +29,6 @@ export class ArticoliService {
       })
     )
   }
-
-
 
   getDesStatoArt = (idStato: string) : string => {
 
