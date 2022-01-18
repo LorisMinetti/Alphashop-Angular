@@ -17,11 +17,7 @@ export class ArticoliService {
 
   getArticoliByDesc = (descrizione : string) => {
 
-    let headers = new HttpHeaders(
-      {Authorization:   "Basic " + window.btoa('Nicola' + ":" + '123_Stella') }
-    )
-
-    return this.httpClient.get<IArticoli[]>(`http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`,{headers}) //ALT + 0096 | ALT GR + '
+    return this.httpClient.get<IArticoli[]>(`http://${this.server}:${this.port}/api/articoli/cerca/descrizione/${descrizione}`) //ALT + 0096 | ALT GR + '
     .pipe(
       map(response => {
         response.forEach(item => item.desStatoArt = this.getDesStatoArt(item.idStatoArt))

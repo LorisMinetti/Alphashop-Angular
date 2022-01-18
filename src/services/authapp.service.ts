@@ -16,8 +16,10 @@ export class AuthappService {
 
   autenticaService(UserId: string, Password: string) {
 
+    let AuthString : string = "Basic " + window.btoa(UserId + ":" + Password);
+
     let headers = new HttpHeaders(
-      {Authorization:   "Basic " + window.btoa(UserId + ":" + Password) }
+      {Authorization:  AuthString}
     )
 
     return this.httpClient.get<ApiMsg>(
@@ -25,6 +27,7 @@ export class AuthappService {
         map(
           data => {
             sessionStorage.setItem("Utente", UserId);
+            sessionStorage.setItem("AuthToken", AuthString);
             return data;
           }
         )
