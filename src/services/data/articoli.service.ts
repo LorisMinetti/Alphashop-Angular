@@ -3,6 +3,7 @@ import { IArticoli, ICat, IIva } from 'src/app/models/Articoli';
 
 import { ApiMsg } from 'src/app/models/ApiMsg';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -10,8 +11,8 @@ import { map } from 'rxjs';
 })
 export class ArticoliService {
 
-  server : string = "localhost";
-  port : string = "5051";
+  server : string = environment.server;
+  port : string = environment.port;
 
   constructor(private httpClient : HttpClient) { }
 
