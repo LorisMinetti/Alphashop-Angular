@@ -2,6 +2,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Observable, map, of } from 'rxjs';
 
+import { AuthJwtService } from 'src/services/authJwt.service';
 import { AuthappService } from 'src/services/authapp.service';
 
 @Component({
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
   titolo: string = "Accesso & Autenticazione";
   sottotitolo: string = "Procedi ad inserire la userid e la password";
 
-  constructor(private route: Router, private route2: ActivatedRoute, private BasicAuth: AuthappService ) { }
+  constructor(private route: Router, private route2: ActivatedRoute, private Auth: AuthJwtService ) { }
 
   ngOnInit(): void {
     this.filter$ = this.route2.queryParamMap.pipe(
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit {
   gestAuth = (): void => {
     console.log(this.userId);
 
-    this.BasicAuth.autenticaService(this.userId, this.password).subscribe({
+    this.Auth.autenticaService(this.userId, this.password).subscribe({
       next: (response) => {
         console.log(response);
 

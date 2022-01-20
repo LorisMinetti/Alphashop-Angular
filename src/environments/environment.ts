@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   server: "localhost",
-  port : "5051"
+  port : "5051",
+   //Auth Server JWT EndPoint
+  authServerUri: "http://localhost:5050/api/user/auth",
 };
 
 /*
