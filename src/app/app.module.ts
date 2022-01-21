@@ -17,6 +17,7 @@ import { NgModule } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RegistrazioneComponent } from './pages/registrazione/registrazione.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
     GridArticoliComponent,
     ArticoliCardComponent,
     RegistrazioneComponent,
-    GestartComponent
+    GestartComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,

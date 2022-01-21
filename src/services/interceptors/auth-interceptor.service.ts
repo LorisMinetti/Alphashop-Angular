@@ -1,5 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 
+import { AuthJwtService } from '../authJwt.service';
 import { AuthappService } from '../authapp.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private BasicAuth: AuthappService) { }
+  constructor(private Auth: AuthJwtService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -18,16 +19,12 @@ export class AuthInterceptorService implements HttpInterceptor {
     let Password : string = "123_Stella";
     */
 
-    let AuthHeader : string = "";
-    var AuthToken =  sessionStorage.getItem("AuthToken");
+    var AuthToken = this.Auth.getAuthToken();
 
-    if (AuthToken != null)
-      AuthHeader = AuthToken;
-
-    if (this.BasicAuth.loggedUser())
+    if (this.Auth.loggedUser())
     {
       req = req.clone({
-        setHeaders : {Authorization : AuthHeader}
+        setHeaders : {Authorization : AuthToken}
       });
     }
 

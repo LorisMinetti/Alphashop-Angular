@@ -31,6 +31,17 @@ export class AuthJwtService {
 
   }
 
+  getAuthToken = () : string => {
+
+    let AuthHeader : string = "";
+    var AuthToken =  sessionStorage.getItem("AuthToken");
+
+    if (AuthToken != null)
+      AuthHeader = AuthToken;
+
+    return AuthHeader;
+  }
+
   loggedUser = (): string | null => (sessionStorage.getItem("Utente")) ? sessionStorage.getItem("Utente") : "";
 
   isLogged = (): boolean => (sessionStorage.getItem("Utente")) ? true : false;
