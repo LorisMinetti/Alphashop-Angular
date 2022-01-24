@@ -94,6 +94,7 @@ export class GestartComponent implements OnInit {
 
   handleError(error: any) {
     console.log(error);
+    this.Errore = error;
   }
 
   salva = () => {
@@ -110,8 +111,7 @@ export class GestartComponent implements OnInit {
         },
         error: (error) => {
           console.log(error);
-          this.apiMsg = error.error;
-          this.Errore = this.apiMsg.message;
+          this.Errore = error;
         }
       });
     }
@@ -123,8 +123,7 @@ export class GestartComponent implements OnInit {
         },
         error: (error) => {
           console.log(error);
-          this.apiMsg = error.error;
-          this.Errore = this.apiMsg.message;
+          this.Errore = error;
         }
       });
     }

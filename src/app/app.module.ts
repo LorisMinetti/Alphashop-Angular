@@ -8,6 +8,8 @@ import { AuthInterceptorService } from 'src/services/interceptors/auth-intercept
 import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
 import { ErrorComponent } from './pages/error/error.component';
+import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
+import { ForbiddenInterceptor } from 'src/services/interceptors/forbidden.interceptor';
 import { FormsModule } from '@angular/forms';
 import { GestartComponent } from './pages/gestart/gestart.component';
 import { GridArticoliComponent } from './pages/grid-articoli/grid-articoli.component';
@@ -17,7 +19,6 @@ import { NgModule } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RegistrazioneComponent } from './pages/registrazione/registrazione.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
-import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
     NgxPaginationModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ForbiddenInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

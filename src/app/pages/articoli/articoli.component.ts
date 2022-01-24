@@ -103,7 +103,7 @@ export class ArticoliComponent implements OnInit {
     }
     else {
       console.log(error);
-      this.errore = error.error.message;
+      this.errore = error;
       this.filterType = 0;
     }
 
@@ -137,7 +137,7 @@ export class ArticoliComponent implements OnInit {
 
   handleErrDelete(error: any) {
     console.log(error);
-    this.errore = error.error.message;
+    this.errore = error;
   }
 
 
