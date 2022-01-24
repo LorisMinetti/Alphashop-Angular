@@ -15,6 +15,7 @@ import { GestartComponent } from './pages/gestart/gestart.component';
 import { GridArticoliComponent } from './pages/grid-articoli/grid-articoli.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
+import { NetworkInterceptor } from 'src/services/interceptors/network.interceptor';
 import { NgModule } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RegistrazioneComponent } from './pages/registrazione/registrazione.component';
@@ -44,7 +45,8 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ForbiddenInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ForbiddenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
