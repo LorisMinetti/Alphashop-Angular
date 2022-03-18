@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Injectable()
-export class ForbiddenInterceptor implements HttpInterceptor {
+export class GestErrorInterceptor implements HttpInterceptor {
 
   constructor(private router: Router) {}
 
@@ -19,11 +19,17 @@ export class ForbiddenInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
         catchError(err => {
 
-        if ([401, 403].indexOf(err.status) !== -1) {
+        console.log(err);
+
+        var error : string = (err.status > 0) ? err.error.message || err.statusText : 'Errore Generico. Impossibile Proseguire!';
+
+        if ([403].indexOf(err.status) !== -1) {
             this.router.navigate(['forbidden']);
         }
+        else if (err.status === 404) {
+          error = "Impossibile trovare l'elemento oggetto della ricerca!";
+        }
 
-        var error = (err.status != 403) ? err.error.message || err.statusText : 'Errore: Privilegi Insufficenti!';
         return throwError(() => error);
     }))
   }

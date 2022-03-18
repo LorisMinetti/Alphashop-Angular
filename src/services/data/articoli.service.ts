@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IArticoli, ICat, IIva } from 'src/app/models/Articoli';
+import { IArticoli, ICat, IIva, } from 'src/app/models/Articoli';
 
 import { ApiMsg } from 'src/app/models/ApiMsg';
 import { Injectable } from '@angular/core';
@@ -26,6 +26,8 @@ export class ArticoliService {
       })
     )
   }
+
+
 
   getDesStatoArt = (idStato: string) : string => {
 
@@ -67,10 +69,10 @@ export class ArticoliService {
   getCat = () => this.httpClient.get<ICat[]>(`http://${this.server}:${this.port}/api/cat`);
 
   updArticolo = (articolo: IArticoli) =>
-      this.httpClient.put<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/modifica`, articolo);
+    this.httpClient.put<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/modifica`, articolo);
 
   insArticolo = (articolo: IArticoli) =>
-      this.httpClient.post<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/inserisci`, articolo);
+    this.httpClient.post<ApiMsg>(`http://${this.server}:${this.port}/api/articoli/inserisci`, articolo);
 
 }
 

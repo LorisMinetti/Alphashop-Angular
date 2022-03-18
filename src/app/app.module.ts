@@ -9,8 +9,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
 import { ErrorComponent } from './pages/error/error.component';
 import { ForbiddenComponent } from './pages/forbidden/forbidden.component';
-import { ForbiddenInterceptor } from 'src/services/interceptors/forbidden.interceptor';
 import { FormsModule } from '@angular/forms';
+import { GestErrorInterceptor } from 'src/services/interceptors/gest-error.interceptor';
 import { GestartComponent } from './pages/gestart/gestart.component';
 import { GridArticoliComponent } from './pages/grid-articoli/grid-articoli.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -45,8 +45,8 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ForbiddenInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: GestErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

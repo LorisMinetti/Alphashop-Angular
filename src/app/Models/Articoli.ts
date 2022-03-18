@@ -10,9 +10,10 @@ export interface IArticoli {
   desStatoArt: string
   dataCreazione: Date
   imageUrl: string
-  idFamAss: number
-  idIva: number
-  ean: IBarcode[]
+  famAssort: ICat
+  iva: IIva
+  barcode: IBarcode[]
+
 }
 
 export interface IIva {

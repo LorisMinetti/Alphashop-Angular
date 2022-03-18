@@ -1,8 +1,10 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
 import { AuthJwtService } from './authJwt.service';
+import { AuthappService } from './authapp.service';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtRolesService } from './jwt-roles.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,25 +12,14 @@ import { Observable } from 'rxjs';
 })
 export class RouteGuardService implements CanActivate {
 
-  token : string = '';
   ruoli : string[] = new Array();
-  items : any;
 
-  constructor(private Auth: AuthJwtService, private router: Router) { }
+  constructor(private Auth: AuthJwtService, private router: Router,
+    private roles: JwtRolesService,) { }
 
   canActivate(route: ActivatedRouteSnapshot, state:  RouterStateSnapshot)  {
 
-    this.token = this.Auth.getAuthToken();
-
-    const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(this.token);
-
-    this.items = decodedToken['role'];
-
-    if (!Array.isArray(this.items))
-      this.ruoli.push(this.items);
-    else
-      this.ruoli = this.items;
+    this.ruoli = this.roles.getRoles();
 
     if (!this.Auth.isLogged()) {
       this.router.navigate(['login'], { queryParams: {nologged: true}});
@@ -51,7 +42,6 @@ export class RouteGuardService implements CanActivate {
         this.router.navigate(['forbidden']);
         return false;
       }
-
     }
   }
 }

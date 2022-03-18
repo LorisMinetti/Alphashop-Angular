@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   titolo: string = "Accesso & Autenticazione";
   sottotitolo: string = "Procedi ad inserire la userid e la password";
 
-  constructor(private route: Router, private route2: ActivatedRoute, private Auth: AuthJwtService ) { }
+  constructor(private route: Router, private route2: ActivatedRoute,  private Auth: AuthJwtService ) { }
 
   ngOnInit(): void {
     this.filter$ = this.route2.queryParamMap.pipe(
@@ -59,18 +59,6 @@ export class LoginComponent implements OnInit {
         this.autenticato = false;
       }
     });
-
-    /*
-    if (this.BasicAuth.autentica(this.userId, this.password)) {
-      this.route.navigate(['welcome', this.userId]);
-
-      this.autenticato = true;
-    }
-    else {
-      this.autenticato = false;
-
-    }
-    */
 
   }
 }

@@ -75,7 +75,8 @@
               <td class="tbl-string">{{articolo.dataCreazione | date : 'dd-MM-YYYY'}}</td>
 
               <td class="text-end">
-                <button (click)="Elimina(articolo.codArt)" class="btn btn-light text-danger">Elimina</button>
+                <button *ngIf="isAdmin" (click)="Elimina(articolo.codArt)" class="btn btn-light text-danger">Elimina</button>
+                <button *ngIf="!isAdmin" (click)="Elimina(articolo.codArt)" disabled class="btn btn-light text-danger">Elimina</button>
 								<div class="dropdown">
 									<button data-bs-toggle="dropdown" class="btn btn-light">
                     <i class="material-icons md-more_horiz"></i>

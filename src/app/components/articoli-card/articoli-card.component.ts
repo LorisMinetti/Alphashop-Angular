@@ -24,9 +24,9 @@ export class ArticoliCardComponent implements OnInit {
     desStatoArt: '',
     dataCreazione: new Date(),
     imageUrl: '',
-    idIva: -1,
-    idFamAss: -1,
-    ean: []
+    iva: {idIva: 0, descrizione: '', aliquota: 0 },
+    famAssort: {id : -1, descrizione: ''},
+    barcode: []
   };
 
   @Output()

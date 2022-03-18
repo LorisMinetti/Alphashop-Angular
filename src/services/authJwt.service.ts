@@ -16,13 +16,13 @@ export class AuthJwtService {
 
   constructor(private httpClient : HttpClient) { }
 
-  autenticaService(UserId: string, Password: string) {
+  autenticaService(username: string, password: string) {
 
     return this.httpClient.post<Token>(
-      `${environment.authServerUri}`, {UserId, Password}).pipe(
+      `${environment.authServerUri}`, {username, password}).pipe(
         map(
           data => {
-            sessionStorage.setItem("Utente", UserId);
+            sessionStorage.setItem("Utente", username);
             sessionStorage.setItem("AuthToken", `Bearer ${data.token}`);
             return data;
           }

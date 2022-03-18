@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthInterceptorService implements HttpInterceptor {
+export class AuthInterceptorService  implements HttpInterceptor {
 
   constructor(private Auth: AuthJwtService) { }
 
@@ -19,7 +19,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     let Password : string = "123_Stella";
     */
 
-    var AuthToken = this.Auth.getAuthToken();
+    var AuthToken =  this.Auth.getAuthToken();
 
     if (this.Auth.loggedUser())
     {
@@ -31,5 +31,4 @@ export class AuthInterceptorService implements HttpInterceptor {
     return next.handle(req);
 
   }
-
 }

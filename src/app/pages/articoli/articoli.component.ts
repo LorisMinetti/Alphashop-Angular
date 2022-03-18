@@ -4,6 +4,8 @@ import { Observable, map, of } from 'rxjs';
 
 import { ArticoliService } from 'src/services/data/articoli.service';
 import { IArticoli } from 'src/app/models/Articoli';
+import { JwtRolesService } from 'src/services/jwt-roles.service';
+import { Ruoli } from 'src/app/models/Ruoli';
 
 @Component({
   selector: 'app-articoli',
@@ -24,11 +26,16 @@ export class ArticoliComponent implements OnInit {
   filterType: number = 0;
 
   codart: string = "";
+  isAdmin: boolean = true;
 
-  constructor(private articoliService: ArticoliService, private route: ActivatedRoute,
-    private router: Router) { }
+  constructor(private articoliService: ArticoliService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private roles: JwtRolesService) { }
 
   ngOnInit(): void {
+
+    this.isAdmin =  (this.roles.getRoles().indexOf(Ruoli.amministratore) > -1) ? true : false;
 
     this.filter$ = this.route.queryParamMap.pipe(
       map((params: ParamMap) => params.get('filter')),
@@ -43,8 +50,6 @@ export class ArticoliComponent implements OnInit {
   }
 
   refresh = () => {
-    this.errore = "";
-
     if (this.filter) {
       this.getArticoli(this.filter);
     }
@@ -52,6 +57,7 @@ export class ArticoliComponent implements OnInit {
 
   getArticoli = (filter : string) => {
 
+    this.errore = "";
     this.articoli$ = [];
 
     if (this.filterType === 0) {
@@ -102,7 +108,6 @@ export class ArticoliComponent implements OnInit {
       this.getArticoli(this.filter);
     }
     else {
-      console.log(error);
       this.errore = error;
       this.filterType = 0;
     }

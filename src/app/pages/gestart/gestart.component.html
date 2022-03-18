@@ -3,21 +3,23 @@
     <div class="content-header">
 		<h2 class="content-title">{{title}}</h2>
 		<div>
-			<button href="#" class="btn btn-outline-danger" (click)=abort()> × Annulla</button>
+			<button class="btn btn-outline-danger" (click)=abort()> × Annulla</button>
 		</div>
 	</div>
 
 	<div class="card mb-4">
     <div class="card-body">
 
-	<div class="alert alert-success" *ngIf='Conferma'>
-		{{Conferma}}
-	</div>
-	<div class="alert alert-danger" *ngIf='Errore'>
-		{{Errore}}
-	</div>
+     <div class="alert alert-success" *ngIf='Conferma'>
+        {{Conferma}}
+    </div>
+     <div class="alert alert-danger" *ngIf='Errore'>
+        {{Errore}}
+    </div>
+
 
     <form (ngSubmit)="artForm.valid && salva()" #artForm="ngForm">
+
 
 		<!-- Codice, Barcode -->
 		<div class="row gx-2">
@@ -31,7 +33,7 @@
 			</div>
 			<div class="col-sm-6 mb-3">
 				<label for="ean" class="form-label">Barcode:</label>
-				<input id="ean"  type="text" placeholder="" class="form-control" value={{ean}}>
+				<input id="ean" disabled  type="text" placeholder="" class="form-control" value={{Ean}}>
 			</div>
 		</div>
 
@@ -50,7 +52,6 @@
 			<div class="col-sm-6 mb-3">
 				<label class="form-label">Unità di Misura</label>
 				<select class="form-select" name="um" [(ngModel)]="articolo.um">
-          <option value="-1" class="text-primary font-weight-bolder">--- Seleziona Unità di Misura ---</option>
 					<option value="PZ"> Pezzi </option>
 					<option value="LT"> Litri </option>
 					<option value="KG"> Kilogrammi </option>
@@ -58,7 +59,7 @@
 			</div>
 			<div class="col-sm-6 mb-3">
 				<label class="form-label">Iva</label>
-				<select class="form-select" name="iva" [(ngModel)]="articolo.idIva">
+				<select class="form-select" name="iva"  [(ngModel)]="articolo.iva.idIva">
           <option value="-1" class="text-primary font-weight-bolder">--- Seleziona Iva ---</option>
 					<option [ngValue]="iva.idIva" *ngFor="let iva of Iva">{{iva.descrizione}}</option>
 				</select>
@@ -71,17 +72,17 @@
             <div class="row gx-2">
             <div class="col-3">
 				<input placeholder="Pezzi" name="pezzi" type="text" class="form-control" [(ngModel)]="articolo.pzCart"
-				required #pzcart="ngModel" maxlength="3">
-			<span style="color:red" *ngIf="pzcart.invalid && (pzcart.dirty || pzcart.touched)">
-				Il pezzi per cartone devono essere presenti ed avere un valore massimo di 100
-			</span>
-        </div>
-        <div class="col-3">
+          required #pzcart="ngModel" maxlength="3">
+          <span style="color:red" *ngIf="pzcart.invalid && (pzcart.dirty || pzcart.touched)">
+            Il pezzi per cartone devono essere presenti ed avere un valore massimo di 100
+          </span>
+            </div>
+            <div class="col-3">
             	<input placeholder="Peso" name="peso" type="text" class="form-control" [(ngModel)]="articolo.pesoNetto"
-				      required #peso="ngModel" maxlength="3">
-				<span style="color:red" *ngIf="peso.invalid && (peso.dirty || peso.touched)">
-					Il Peso Netto deve avere un valore compreso tra 0.01 e 100
-				</span>
+              required #peso="ngModel" maxlength="5">
+              <span style="color:red" *ngIf="peso.invalid && (peso.dirty || peso.touched)">
+                Il Peso Netto deve avere un valore compreso tra 0.01 e 100
+              </span>
             </div>
             <div class="col-4">
 				<input placeholder="Prezzo" type="text" class="form-control">
@@ -101,7 +102,7 @@
 			<div class="col-sm-6 mb-3">
 				<label class="form-label">Categoria:</label>
 
-				<select class="form-select" name="cat" [(ngModel)]="articolo.idFamAss">
+				<select class="form-select" name="cat" [(ngModel)]="articolo.famAssort.id">
           <option [ngValue]="categoria.id" *ngFor="let categoria of Cat">{{categoria.id}} - {{categoria.descrizione}}</option>
 				</select>
 			</div>
@@ -120,6 +121,7 @@
 			<label class="form-label">Immagine:</label>
 			<input class="form-control" type="file">
 		</div>
+
     <br>
     <button type="submit" class="btn btn-primary" [disabled]="artForm.invalid">Salva Articolo</button>
 

@@ -16,10 +16,16 @@ export class GestartComponent implements OnInit {
   isModifica : boolean = false;
 
   CodArt: string = '';
+  Ean: string = '';
+
+  apiMsg! : ApiMsg;
+  Conferma: string = '';
+  Errore: string = '';
+
   articolo: IArticoli = {
     codArt: '',
     descrizione: '',
-    um: '-1',
+    um: 'PZ',
     codStat: '',
     pzCart: 0,
     pesoNetto: 0,
@@ -28,20 +34,13 @@ export class GestartComponent implements OnInit {
     desStatoArt: '',
     dataCreazione: new Date(),
     imageUrl: '',
-    idIva: -1,
-    idFamAss: -1,
-    ean: []
+    iva: {idIva: -1, descrizione: '', aliquota: 0 },
+    famAssort: {id : -1, descrizione: ''},
+    barcode: []
   };
 
   Iva: IIva[] = [];
   Cat: ICat[] = [];
-
-  ean: string = "";
-
-  apiMsg!: ApiMsg;
-
-  Conferma: string = '';
-  Errore: string = '';
 
   constructor(private route: ActivatedRoute, private articoliService: ArticoliService,
     private router: Router) { }
@@ -78,30 +77,28 @@ export class GestartComponent implements OnInit {
 
         this.Cat = response;
         console.log(response);
+
       }
     )
-
-
   }
 
   handleResponse(response : any) {
     this.articolo = response;
 
-    this.ean = (this.articolo.ean) ? this.articolo.ean[0].barcode : "";
+    this.Ean = (this.articolo.barcode) ? this.articolo.barcode[0].barcode : "";
 
     console.log(this.articolo);
   }
 
   handleError(error: any) {
     console.log(error);
-    this.Errore = error;
   }
 
   salva = () => {
     console.log(this.articolo);
 
-    this.Errore = "";
     this.Conferma = "";
+    this.Errore = "";
 
     if (this.isModifica) {
       this.articoliService.updArticolo(this.articolo).subscribe({
@@ -110,7 +107,6 @@ export class GestartComponent implements OnInit {
           this.Conferma = this.apiMsg.message;
         },
         error: (error) => {
-          console.log(error);
           this.Errore = error;
         }
       });
@@ -122,7 +118,6 @@ export class GestartComponent implements OnInit {
           this.Conferma = this.apiMsg.message;
         },
         error: (error) => {
-          console.log(error);
           this.Errore = error;
         }
       });
@@ -137,5 +132,6 @@ export class GestartComponent implements OnInit {
       this.router.navigate(['articoli']);
 
   }
+
 
 }
