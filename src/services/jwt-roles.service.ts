@@ -17,15 +17,17 @@ export class JwtRolesService {
 
     token = this.Auth.getAuthToken();
 
-    const helper = new JwtHelperService();
-    const decodedToken = helper.decodeToken(token);
+    if (token.length > 50) {
+      const helper = new JwtHelperService();
+      const decodedToken = helper.decodeToken(token);
 
-    items = decodedToken['authorities'];
+      items = decodedToken['authorities'];
 
-    if (!Array.isArray(items))
-      ruoli.push(items);
-    else
-      ruoli = items;
+      if (!Array.isArray(items))
+        ruoli.push(items);
+      else
+        ruoli = items;
+    }
 
     return ruoli;
   }

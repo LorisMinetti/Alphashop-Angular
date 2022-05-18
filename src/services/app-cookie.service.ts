@@ -8,10 +8,10 @@ export class AppCookieService {
   private cookieStore : any = {};
 
   constructor() {
-    this.parseCookies(document.cookie);
+    this.parseCookies(document.cookie, false);
   }
 
-  public parseCookies(cookies = document.cookie) {
+  public parseCookies(cookies = document.cookie, clear : boolean ) {
     this.cookieStore = {};
 
     if (!!cookies === false) { return; }
@@ -20,12 +20,17 @@ export class AppCookieService {
 
     for (const cookie of cookiesArr) {
         const cookieArr = cookie.split('=');
-        this.cookieStore[cookieArr[0].trim()] = cookieArr[1];
+        if (clear) {
+          this.remove(cookieArr[0].trim())
+        }
+        else {
+          this.cookieStore[cookieArr[0].trim()] = cookieArr[1];
+        }
     }
   }
 
   get(key: string) {
-    this.parseCookies();
+    this.parseCookies(document.cookie, false);
     return !!this.cookieStore[key] ? this.cookieStore[key] : null;
   }
 
@@ -35,5 +40,9 @@ export class AppCookieService {
 
   set(key: string, value: string) {
       document.cookie = key + '=' + (value || '');
+  }
+
+  clear = () => {
+    this.parseCookies(document.cookie, true);
   }
 }
