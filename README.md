@@ -1,6 +1,8 @@
 # Alphashop
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.4.
+Progetto di test del corso "Sviluppare Full Stack Applications con Spring Boot e Angular"
+Link: https://www.udemy.com/course/sviluppare-full-stack-applications-con-spring-boot-e-angular/?referralCode=E0471AACC36D171236E1
+Aggiornato alla versione 13.3.5 di Angular.
 
 ## Development server
 
