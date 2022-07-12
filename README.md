@@ -1,14 +1,10 @@
 # Alphashop
 
-Progetto di test del corso "Sviluppare Full Stack Applications con Spring Boot e Angular"
-
-https://www.udemy.com/course/sviluppare-full-stack-applications-con-spring-boot-e-angular/?referralCode=E0471AACC36D171236E1
-
-Aggiornato alla versione 13.3.5 di Angular.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.5.
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 

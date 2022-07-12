@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IArticoli } from 'src/app/Models/Articoli';
 
-import { IArticoli } from 'src/app/models/Articoli';
+
 
 @Component({
   selector: 'app-articoli-card',

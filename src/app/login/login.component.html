@@ -1,0 +1,24 @@
+
+<div>
+  <label for="userId>"> User ID:</label>
+  <input type="text"  id="userID"  placeholder="Nome Utente" [(ngModel)]=userID >
+
+  <label for="Password"> Password:</label>
+  <input type="password"  id="password"  placeholder="Password" [(ngModel)]=password>
+
+  <button (click)= gestAuth()>Connetti</button>
+  <!--<br>
+  <p>
+    Il tuo UserID è {{userID}} e la tua password è {{password}}
+  </p> -->
+</div>
+
+
+ <!--
+  Qui vado a dire che se la variabile autenticato acquisice un valore false, stampo un messaggio di errore
+  Mentre se la variabile consentito acquisisce un valore true stampo un messaggio di OK
+  -->
+<div *ngIf="!autenticato">
+  {{errorMsg}}
+</div>
+
