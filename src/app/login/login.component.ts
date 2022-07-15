@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthappService } from 'src/services/authapp.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,15 @@ export class LoginComponent implements OnInit {
 
   errorMsg: string = "Spiacente, la user Id e/o la password sono errati!";
 
-  constructor(private route: Router) { }
+  /*
+  Queste due variabili verranno poi passate alle variabili di JumboTron come stringhe.
+  e' una questione stilistica. Invece di inserire la stringa hardCoded all'interno del codice html, la dichiaro qui e
+  passo solo la variabile.
+  */
+  titolo: string = "Accesso ed autenticazione"
+  sottotitolo: string = "Procedi ad inserire userId e Password!";
+
+  constructor(private route: Router, private BasicAuth: AuthappService) { }
 
   ngOnInit(): void {
   }
@@ -23,7 +32,7 @@ export class LoginComponent implements OnInit {
   gestAuth = () : void => {
     console.log(this.userID);
 
-    if(this.userID=="Loris" && this.password=="123_Stella"){
+    if(this.BasicAuth.autentica(this.userID, this.password)){
       this.route.navigate(['welcome', this.userID]);
 
       this.autenticato = true;
