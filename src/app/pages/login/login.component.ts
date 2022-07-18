@@ -33,6 +33,10 @@ export class LoginComponent implements OnInit {
     console.log(this.userID);
 
     if(this.BasicAuth.autentica(this.userID, this.password)){
+      /*
+      Se da questo metodo otteniamo un valore true,
+      navigheremo nella pagina welcome
+       */
       this.route.navigate(['welcome', this.userID]);
 
       this.autenticato = true;
