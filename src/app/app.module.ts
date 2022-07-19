@@ -10,6 +10,8 @@ import { ArticoliComponent } from './pages/articoli/articoli.component';
 import { CoreModule } from './core/core.module';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { GridArticoliComponent } from './pages/grid-articoli/grid-articoli.component';
+import { ArtcioliCardComponent } from './components/artcioli-card/artcioli-card.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,9 @@ import { GridArticoliComponent } from './pages/grid-articoli/grid-articoli.compo
     ErrorComponent,
     ArticoliComponent,
     LogoutComponent,
-    GridArticoliComponent
+    GridArticoliComponent,
+    ArtcioliCardComponent
+
   ],
   imports: [
     BrowserModule,
@@ -27,6 +31,7 @@ import { GridArticoliComponent } from './pages/grid-articoli/grid-articoli.compo
     CoreModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }
